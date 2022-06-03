@@ -185,6 +185,13 @@ async function run() {
         const profile = await cursor.toArray()
         res.send(profile)
       });
+      // reviews api
+      app.get('/review', async(req,res)=>{
+        const query = {} ;
+        const cursor = reviewCollection.find(query)
+        const reviews = await cursor.toArray()
+        res.send(reviews)
+      })
 
 
 
