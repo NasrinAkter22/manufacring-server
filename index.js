@@ -140,7 +140,12 @@ async function run() {
         res.send(updatedDoc)
       });
 
-
+     //Order Api
+     app.post('/order', verifyJWT, async(req,res)=>{
+        const newOrder = req.body ;
+        const result = await orderCollection.insertOne(newOrder)
+        res.send(result)
+      })
 
     }
     finally {
