@@ -56,6 +56,16 @@ async function run() {
             }
         }
 
+        // Product all api
+        app.get("/item", async (req, res) => {
+            const query = {};
+            const cursor = itemCollection.find(query);
+            const products = await cursor.toArray();
+            res.send(products);
+          });
+ 
+  
+
 
 
     }
