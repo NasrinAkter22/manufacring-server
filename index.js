@@ -72,7 +72,15 @@ async function run() {
           res.send(product);
       })
 
-  
+     
+      // add new products api
+      app.post('/item',verifyJWT, async(req, res)=>{
+        const newItem = req.body;
+        const tokenInfo = req.header.authorization;
+        const result = await itemCollection.insertOne(newItem);
+        res.send(result);
+      })
+
 
 
 
