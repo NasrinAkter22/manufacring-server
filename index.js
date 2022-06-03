@@ -219,6 +219,27 @@ app.post('/review',verifyJWT, async(req,res)=>{
 
         })
 
+        Naimur Rahaman Emon
+// create admin user
+        app.put('/user/admin/:email', verifyJWT, verifyAdmin, async(req, res)=>{
+          const email = req.params.email;
+          const filter = {email: email};
+          const updateDoc = {
+            $set: {role: 'admin'},
+          };
+          const result = await userCollection.updateOne(filter, updateDoc);
+          res.send(result);
+
+        })
+
+        // admin checkup Api 
+        app.get('/admin/:email', async(req, res)=>{
+          const email = req.params.email;
+          const user = await userCollection.findOne({email: email});
+          const isAdmin = user.role === 'admin';
+          res.send({admin: isAdmin})
+        })
+
 
 
     }
