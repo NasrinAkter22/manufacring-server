@@ -88,6 +88,14 @@ async function run() {
         const result = await itemCollection.deleteOne(query);
         res.send(result)
       })
+      
+// all order get api
+      app.get("/allOrder",verifyJWT, verifyAdmin, async (req, res) => {
+        const query = {};
+        const cursor = orderCollection.find(query);
+        const orders = await cursor.toArray();
+        res.send(orders);
+      });
 
 
 
