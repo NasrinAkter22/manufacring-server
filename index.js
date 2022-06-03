@@ -113,7 +113,32 @@ async function run() {
           return res.status(403).send({message: 'forbidden access'});
         }
       });
-
+      
+      
+// id to find order api
+      app.get('/order/:id',verifyJWT, async(req,res)=>{
+        const id = req.params.id;
+        const query = {_id:ObjectId(id)} ;
+        const order = await orderCollection.findOne(query)
+        res.send(order)
+      });
+      
+      // order patch api
+      app.patch('/order/:id',verifyJWT, async(req,res)=>{
+        const id = req.params.id;
+        const payment = req.body;
+        console.log(payment)
+        const filter = {_id:ObjectId(id)} ;
+        const updatedDoc = {
+          $set: {
+            paid: true,
+            transactionId: payment.transactionId,
+          }
+        }
+        const result = await paymentCollection.insertOne(payment);
+        const updatedOrder = await orderCollection.updateOne(filter, updatedDoc);
+        res.send(updatedDoc)
+      });
 
 
 
