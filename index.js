@@ -177,6 +177,14 @@ async function run() {
         const result = await profileCollection.updateOne(filter, updateDoc, options);
         res.send(result);
       })
+      // user profile info get api
+      app.get('/profile',verifyJWT, async(req,res)=>{
+        const email = req.query.email;
+        const query = {email:email} ;
+        const cursor = profileCollection.find(query)
+        const profile = await cursor.toArray()
+        res.send(profile)
+      });
 
 
 
