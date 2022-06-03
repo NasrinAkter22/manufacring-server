@@ -97,6 +97,23 @@ async function run() {
         res.send(orders);
       });
 
+      
+// Order get api
+       app.get('/order',verifyJWT, async(req,res)=>{
+        const email = req.query.email;
+        const decodedEmail = req.decoded.email;
+        console.log(decodedEmail,email)
+        if(email === decodedEmail){
+        const query = {email:email} ;
+        const cursor = orderCollection.find(query)
+        const order = await cursor.toArray()
+        res.send(order)
+        }
+        else{
+          return res.status(403).send({message: 'forbidden access'});
+        }
+      });
+
 
 
 
